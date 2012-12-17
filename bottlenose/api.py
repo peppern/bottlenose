@@ -90,6 +90,13 @@ class AmazonCall(object):
         kwargs['Version'] = self.Version
         kwargs['AWSAccessKeyId'] = self.AWSAccessKeyId
         kwargs['Service'] = "AWSECommerceService"
+        if self.Operation == "CartCreate":
+            print "doing cart creation"
+            c=0
+            for item in kwargs['items'][0:9]:
+                kwargs['Item.%d.ASIN' % c] = item[0]
+                kwargs['Item.%d.Quantity' % c] = item[1]
+                c+=1
 
         if self.AssociateTag:
             kwargs['AssociateTag'] = self.AssociateTag
